@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Product } from "@/lib/types";
+import Link from "next/link";
 
 
 const Products = async () => {
@@ -24,6 +25,7 @@ const Products = async () => {
           />
           <h2>{p.name}</h2>
           <p>{p.price}円</p>
+          <Link href={`/products/${p.id}`}>詳細へ</Link>
         </div>
       ))}
     </div>

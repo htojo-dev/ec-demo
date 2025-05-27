@@ -16,7 +16,9 @@ export type Post = {
 export type Product = {
   id: number;
   name: string;
-  price: string;
   description: string;
   images: { src: string }[];
+  regular_price: string;
+  price: string;
+  sale_price: string | null;
 };
