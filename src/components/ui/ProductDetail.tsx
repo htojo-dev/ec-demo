@@ -4,13 +4,23 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Product } from "@/lib/types";
+import { useCartStore } from "@/lib/store/cartStore";
 
 export default function ProductDetail({ product }: { product: Product }) {
   const [quantity, setQuantity] = useState(1);
 
-  const handleAddToCart = () => {
-    console.log(`商品ID: ${product.id}を${quantity}個追加`);
-  }
+  const addToCart = () => {
+    // console.log(`商品ID: ${product.id}を${quantity}個追加`);
+    useCartStore.getState().addItem({
+      id: product.id,
+      name: product.name,
+      price: Number(product.sale_price || product.regular_price),
+      image: product.images[0].src,
+      quantity: quantity,
+    });
+    
+    console.log("現在のカート:", useCartStore.getState().items)
+  };
 
   try {
     return (
@@ -54,7 +64,7 @@ export default function ProductDetail({ product }: { product: Product }) {
             />
           </div>
 
-          <button onClick={handleAddToCart}>カートに追加</button>
+          <button onClick={addToCart}>カートに追加</button>
         </div>
 
         <Link href="/products">一覧へ戻る</Link>
