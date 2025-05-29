@@ -5,9 +5,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { Product } from "@/lib/types";
 import { useCartStore } from "@/lib/store/cartStore";
+import { useRouter } from "next/navigation";
 
 export default function ProductDetail({ product }: { product: Product }) {
   const [quantity, setQuantity] = useState(1);
+  const router = useRouter();
 
   const addToCart = () => {
     // console.log(`商品ID: ${product.id}を${quantity}個追加`);
@@ -18,8 +20,9 @@ export default function ProductDetail({ product }: { product: Product }) {
       image: product.images[0].src,
       quantity: quantity,
     });
-    
-    console.log("現在のカート:", useCartStore.getState().items)
+
+    console.log("現在のカート:", useCartStore.getState().items);
+    router.push("/cart");
   };
 
   try {
